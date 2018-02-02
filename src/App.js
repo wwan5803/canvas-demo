@@ -20,7 +20,10 @@ class App extends Component {
     canvas = document.getElementById("myCanvas");
     ctx = canvas.getContext("2d");
     window.onkeydown = this.keydownControl;
-    setInterval(this.draw, 100);
+    const that = this;
+    setInterval(()=>{
+        this.draw(that)
+    }, 100)
   }
 
   circle(x, y, r) {
@@ -34,49 +37,48 @@ class App extends Component {
   }
 
   snake() {
-    var circle = this.circle();
     if (key === 37) {
       switch (a) {
         case 1: {
-          circle(x, y - 60, 20);
-          circle(x, y - 40, 20);
-          circle(x, y - 20, 20);
-          circle(x, y, 20);
-          circle(x - 20, y, 20);
+          this.circle(x, y - 60, 20);
+          this.circle(x, y - 40, 20);
+          this.circle(x, y - 20, 20);
+          this.circle(x, y, 20);
+          this.circle(x - 20, y, 20);
           break;
         }
         case 2: {
-          circle(x, y - 40, 20);
-          circle(x, y - 20, 20);
-          circle(x, y, 20);
-          circle(x - 20, y, 20);
-          circle(x - 40, y, 20);
+          this.circle(x, y - 40, 20);
+          this.circle(x, y - 20, 20);
+          this.circle(x, y, 20);
+          this.circle(x - 20, y, 20);
+          this.circle(x - 40, y, 20);
           break;
         }
         case 3: {
-          circle(x, y - 20, 20);
-          circle(x, y, 20);
-          circle(x - 20, y, 20);
-          circle(x - 40, y, 20);
-          circle(x - 60, y, 20);
+          this.circle(x, y - 20, 20);
+          this.circle(x, y, 20);
+          this.circle(x - 20, y, 20);
+          this.circle(x - 40, y, 20);
+          this.circle(x - 60, y, 20);
           break;
         }
         case 4: {
-          circle(x, y, 20);
-          circle(x - 20, y, 20);
-          circle(x - 40, y, 20);
-          circle(x - 60, y, 20);
-          circle(x - 80, y, 20);
+          this.circle(x, y, 20);
+          this.circle(x - 20, y, 20);
+          this.circle(x - 40, y, 20);
+          this.circle(x - 60, y, 20);
+          this.circle(x - 80, y, 20);
           break;
         }
         case 5: {
           if (x + mx > WIDTH || x + mx < 0) mx = -mx;
           x += mx;
-          circle(x, y, 20);
-          circle(x - 20, y, 20);
-          circle(x - 40, y, 20);
-          circle(x - 60, y, 20);
-          circle(x - 80, y, 20);
+          this.circle(x, y, 20);
+          this.circle(x - 20, y, 20);
+          this.circle(x - 40, y, 20);
+          this.circle(x - 60, y, 20);
+          this.circle(x - 80, y, 20);
           break;
         }
       }
@@ -87,45 +89,45 @@ class App extends Component {
     } else if (key === 38) {
       switch (w) {
         case 1: {
-          circle(x - 20, y, 20);
-          circle(x - 40, y, 20);
-          circle(x - 60, y, 20);
-          circle(x - 80, y, 20);
-          circle(x - 80, y - 20, 20);
+          this.circle(x - 20, y, 20);
+          this.circle(x - 40, y, 20);
+          this.circle(x - 60, y, 20);
+          this.circle(x - 80, y, 20);
+          this.circle(x - 80, y - 20, 20);
           break;
         }
         case 2: {
-          circle(x - 40, y, 20);
-          circle(x - 60, y, 20);
-          circle(x - 80, y, 20);
-          circle(x - 80, y - 20, 20);
-          circle(x - 80, y - 40, 20);
+          this.circle(x - 40, y, 20);
+          this.circle(x - 60, y, 20);
+          this.circle(x - 80, y, 20);
+          this.circle(x - 80, y - 20, 20);
+          this.circle(x - 80, y - 40, 20);
           break;
         }
         case 3: {
-          circle(x - 60, y, 20);
-          circle(x - 80, y, 20);
-          circle(x - 80, y - 20, 20);
-          circle(x - 80, y - 40, 20);
-          circle(x - 80, y - 60, 20);
+          this.circle(x - 60, y, 20);
+          this.circle(x - 80, y, 20);
+          this.circle(x - 80, y - 20, 20);
+          this.circle(x - 80, y - 40, 20);
+          this.circle(x - 80, y - 60, 20);
           break;
         }
         case 4: {
-          circle(x - 80, y, 20);
-          circle(x - 80, y - 20, 20);
-          circle(x - 80, y - 40, 20);
-          circle(x - 80, y - 60, 20);
-          circle(x - 80, y - 80, 20);
+          this.circle(x - 80, y, 20);
+          this.circle(x - 80, y - 20, 20);
+          this.circle(x - 80, y - 40, 20);
+          this.circle(x - 80, y - 60, 20);
+          this.circle(x - 80, y - 80, 20);
           break;
         }
         case 5: {
           if (y + my > HEIGHT || y + my < 0) my = -my;
           y += my;
-          circle(x - 80, y, 20);
-          circle(x - 80, y - 20, 20);
-          circle(x - 80, y - 40, 20);
-          circle(x - 80, y - 60, 20);
-          circle(x - 80, y - 80, 20);
+          this.circle(x - 80, y, 20);
+          this.circle(x - 80, y - 20, 20);
+          this.circle(x - 80, y - 40, 20);
+          this.circle(x - 80, y - 60, 20);
+          this.circle(x - 80, y - 80, 20);
           break;
         }
       }
@@ -134,11 +136,11 @@ class App extends Component {
         w = 5;
       }
     } else {
-      circle(x, y, 20);
-      circle(x, y - 20, 20);
-      circle(x, y - 40, 20);
-      circle(x, y - 60, 20);
-      circle(x, y - 80, 20);
+      this.circle(x, y, 20);
+      this.circle(x, y - 20, 20);
+      this.circle(x, y - 40, 20);
+      this.circle(x, y - 60, 20);
+      this.circle(x, y - 80, 20);
 
       if (x + mx > WIDTH || x + mx < 0) mx = -mx;
       if (y + my > HEIGHT || y + my < 0) my = -my;
@@ -148,9 +150,10 @@ class App extends Component {
     }
   }
 
-  draw() {
-    this.clear();
-    this.snake();
+  draw(that) {
+    console.log('111')
+    that.clear();
+    that.snake();
 
     // if (x + mx > WIDTH || x + mx < 0)
     //     mx = -mx;
