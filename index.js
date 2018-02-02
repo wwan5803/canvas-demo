@@ -1,36 +1,40 @@
-function drawShape() {
-    var myCanvas = document.getElementById("myCanvas");
-    var ctx = myCanvas.getContext("2d");
-    var img = new Image();
-    img.src = './images/axis.png';
-    img.onload = function(){
-        ctx.drawImage(img,0,0);
-        var leftMargin = 0;
-        for(var i = 1; i < 10; i++){
-            drawCandle(ctx, leftMargin);
-            leftMargin+=30;
-        }
+var canvas;
+var ctx;
+var x = 568;
+var y = 262;
+var mx = 2;
+var my = 4;
+var WIDTH = 568;
+var HEIGHT = 262;
 
+function circle(x,y,r) {
+    ctx.beginPath();
+    ctx.arc(x, y, r, 0, Math.PI*2, true);
+    ctx.fill();
+}
 
+function clear() {
+    ctx.clearRect(0, 0, WIDTH, HEIGHT);
+}
 
+function init() {
+    canvas = document.getElementById("myCanvas");
+    ctx = canvas.getContext("2d");
+    return setInterval(draw, 10);
+}
 
-    };
+function draw() {
+    clear();
+    circle(x, y, 20);
+
+    if (x + mx > WIDTH || x + mx < 0)
+        mx = -mx;
+    if (y + my > HEIGHT || y + my < 0)
+        my = -my;
+
+    x += mx;
+    y += my;
 
 }
 
-function drawCandle(ctx, leftMargin){
-    //draw the rectangle
-    ctx.beginPath();
-    ctx.moveTo(100 + leftMargin,115);
-    ctx.lineTo(120 + leftMargin,115);
-    ctx.lineTo(120 + leftMargin,145);
-    ctx.lineTo(100 + leftMargin,145);
-    ctx.closePath();
-    ctx.stroke();
-
-    //draw the wick
-    ctx.beginPath();
-    ctx.moveTo(110 + leftMargin,145);
-    ctx.lineTo(110 + leftMargin,175);
-    ctx.stroke();
-}
+init();
