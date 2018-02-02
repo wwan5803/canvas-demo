@@ -1,21 +1,36 @@
 function drawShape() {
     var myCanvas = document.getElementById("myCanvas");
     var ctx = myCanvas.getContext("2d");
-    ctx.fillRect(20, 20, 100, 100);
-    ctx.strokeRect(10,10,120,120)
-    ctx.clearRect(45,45,50,50);
+    var img = new Image();
+    img.src = './images/axis.png';
+    img.onload = function(){
+        ctx.drawImage(img,0,0);
+        var leftMargin = 0;
+        for(var i = 1; i < 10; i++){
+            drawCandle(ctx, leftMargin);
+            leftMargin+=30;
+        }
 
-    ctx.fillStyle = "red"; //filled green for inner content
-    ctx.lineWidth = 1; // 1px width of outline
-    ctx.strokeStyle = "rgb(0, 50, 200)"; //filled red for outline
+
+
+
+    };
+
+}
+
+function drawCandle(ctx, leftMargin){
+    //draw the rectangle
     ctx.beginPath();
-    ctx.moveTo(75,0);
-    ctx.lineTo(150,100);
-    ctx.lineTo(75, 200);
-    ctx.lineTo(0,100);
+    ctx.moveTo(100 + leftMargin,115);
+    ctx.lineTo(120 + leftMargin,115);
+    ctx.lineTo(120 + leftMargin,145);
+    ctx.lineTo(100 + leftMargin,145);
     ctx.closePath();
-    ctx.fill();
     ctx.stroke();
 
-
+    //draw the wick
+    ctx.beginPath();
+    ctx.moveTo(110 + leftMargin,145);
+    ctx.lineTo(110 + leftMargin,175);
+    ctx.stroke();
 }
