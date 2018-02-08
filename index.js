@@ -5,19 +5,21 @@ canvas = document.getElementById("myCanvas");
 ctx = canvas.getContext("2d");
 
 //construct rect
-function Rect(color, x, y, w, h){
-    this.color = color;
+function Rect (x,y,w,h,color) {
     this.x = x;
     this.y = y;
     this.w = w;
     this.h = h;
+    this.color = color;
 }
-
-//draw rect
-Rect.prototype.drawRect = function(){
+//画方块的方法
+Rect.prototype.draw = function () {
     ctx.beginPath();
     ctx.fillStyle = this.color;
-    ctx.rect(this.x, this.y, this.w, this.h);
+    ctx.rect(this.x,this.y,this.w,this.h);
+    ctx.lineWidth = 1;
+    ctx.strokeStyle = "rgb(0, 50, 200)"
+    ctx.fill();
     ctx.stroke();
 }
 
@@ -26,29 +28,95 @@ Rect.prototype.drawRect = function(){
 function Snake(){
     var snakeArr = [];
     for(var i=0; i<4; i++){
-        var rect = new Rect('grey', i*20, 0, 20, 20);
+        var rect = new Rect(i*20,0,20,20,"gray");
         snakeArr.splice (0, 0, rect);
     }
     var head = snakeArr[0];
     head.color = 'red';
     this.head = head;
     this.snakeArr = snakeArr;
+    //设置蛇头的运动方向，37 左，38 上，39 右，40 下
+    this.direction = 39;
 }
 
 //draw snake
 Snake.prototype.drawSnake = function(){
-    for(var i =0; i<this.snakeArr; i++){
-        this.snakeArr[i].drawRect();
+
+    for(var i =0; i<this.snakeArr.length; i++){
+        this.snakeArr[i].draw();
     }
+    console.log(this.snakeArr)
 }
+
 
 var snake = new Snake();
 
 snake.drawSnake();
 
 //snake move
+Snake.prototype.move = function(){
+    var rect = new Rect(this.head.x,this.head.y,20,20,"gray");
+    this.snakeArr.splice(1, 0, rect);
+    this.snakeArr.pop();
+    switch(this.direction){
+        case 37: {
+            this.head.x-=20;
+            break;
+        }
+        case 38: {
+            this.head.y-=20;
+            break;
+        }
+        case 39: {
+            this.head.x+=20;
+            break;
+        }
+        case 40: {
+            this.head.y+=20;
+            break;
+        }
+    }
+}
 
+//定时器
+var timer = setInterval(function () {
+    ctx.clearRect(0,0,canvas.width,canvas.height);
+    ctx.strokeRect(0,0,568,568)
+    snake.move();
+    snake.drawSnake();
+}, 1000)
 
+//键盘事件，其中的if判定是为了让蛇不能直接掉头
+document.onkeydown = function (e) {
+    var ev = e||window.event;
+    switch(ev.keyCode){
+        case 37:{
+            if (snake.direction !== 39){
+                snake.direction = 37;
+            }
+            break;
+        }
+        case 38:{
+            if (snake.direction !== 40){
+                snake.direction = 38;
+            }
+            break;
+        }
+        case 39:{
+            if (snake.direction !== 37){
+                snake.direction = 39;
+            }
+            break;
+        }
+        case 40:{
+            if (snake.direction !== 38){
+                snake.direction = 40;
+            }
+            break;
+        }
+    }
+    ev.preventDefault();
+}
 
 // 画出初始的食物
 
